@@ -10,117 +10,157 @@ as examples.
 
 ```mermaid
 %% mermaid flowcharts documentation: https://mermaid.js.org/syntax/flowchart.html
-%%{ init: { 'flowchart': { 'curve': 'monotoneY' } } }%%
+%%{ init: { 'flowchart': { 'curve': 'catmullRom' } } }%%
 flowchart TD
     %% Styles
+    %% classDef study fill:#99CCFF,color:#000000
+    classDef study fill:#fefefe,color:#000000
+    classDef task fill:#FFFFFF,color:#000000	
+    classDef concept fill:#a7a7a7,color:#000000
     classDef Invisible stroke-width:0,fill:#00000000 
 
-    %% Transitions
-    Start-->|"Path to Distro Contribution"| Basics
+    Start((" ")):::Invisible
+    Start --> |"Path to Distro Contribution"| Basics
 
     subgraph Basics
         direction TB
         subgraph InitialStudies["Initial Studies"]
             direction BT
             %% Concepts{{"Concepts"}}
-            Concepts{{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook>Concepts</a>"}}
-            Git-Ubuntu{{"Git-Ubuntu"}}
-            Debian-Policy{{"<a href=https://www.debian.org/doc/debian-policy/>Debian Policy</a>"}}
+            Concepts{{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook>Concepts</a>"}}:::study
+            Git-Ubuntu{{"Git-Ubuntu"}}:::study
+            Debian-Policy{{"<a href=https://www.debian.org/doc/debian-policy/>Debian Policy</a>"}}:::study
         end
         subgraph InitialTasks["Initial Tasks"]
             direction BT
-            BiteSizedBugs((Bite Sized Bugs fa:fa-ban))
-            TrivialPackgeMerges(("Trivial Package Merges"))
+            BiteSizedBugs((Bite Sized Bugs)):::task
+            TrivialPackgeMerges(("Trivial Package Merges")):::task
         end
     end
+
+    %% style Basics fill:#F99,stroke-width:2px,stroke:#F0F
+    style Basics fill:#e6e6e6,color:#000000,stroke:#333
+    style InitialStudies fill:#f4f4f4,color:#000000,stroke:#333
+    style InitialTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+
     InitialStudies --> InitialTasks
 
-    Basics -->|"Team/Mentor Says ready for more"| Intermediate
+    BasicsToIntermediate{"Team/Mentor Says ready for more"}:::concept
+
+    Basics --> BasicsToIntermediate --> Intermediate
     subgraph Intermediate
         direction TB
-        subgraph IntermediateTasks
+        subgraph IntermediateTasks[Intermediate Tasks]
             direction TB
             %% States
-            ComplexPackageMerges(("Complex Package Merges"))
-            ProposeMigration(("<a href=https://wiki.ubuntu.com/ProposedMigration>Proposed Migration</a>"))
-            UnderstandDep8{{"<a href=https://salsa.debian.org/ci-team/autopkgtest/blob/master/doc/README.package-tests.rst>Understand DEP8</a>"}}
-            AddAUTOPKGTESTS(("<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/PackageTests.md>Add Autopkgtest</a>"))
-            SRU{{"<a href=https://wiki.ubuntu.com/StableReleaseUpdates>Study SRU</a>"}}
-            DoSRUS(("Do SRUS"))
+            ComplexPackageMerges(("Complex Package Merges")):::task
+            ProposeMigration(("<a href=https://wiki.ubuntu.com/ProposedMigration>Proposed Migration</a>")):::task
+            UnderstandDep8{{"<a href=https://salsa.debian.org/ci-team/autopkgtest/blob/master/doc/README.package-tests.rst>Understand DEP8</a>"}}:::study
+            AddAUTOPKGTESTS(("<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/PackageTests.md>Add Autopkgtest</a>")):::task
+            SRU{{"<a href=https://wiki.ubuntu.com/StableReleaseUpdates>Study SRU</a>"}}:::study
+            DoSRUS(("Do SRUS")):::task
 
             %% Transitions
             UnderstandDep8 --> AddAUTOPKGTESTS
             ComplexPackageMerges --> ProposeMigration
             SRU --> DoSRUS
         end
-        IntermediateKeepGoing["Do enough of these to apply for package or group uploads"]
+        IntermediateKeepGoing["Do enough of these to apply for package or group uploads"]:::task
         IntermediateTasks --> IntermediateKeepGoing --> IntermediateTasks
     end
     
-    Intermediate -->|"Team/Mentor Says ready for more"| Advanced
+    style Intermediate fill:#e6e6e6,color:#000000,stroke:#333
+    style IntermediateTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+
+    IntermediateToAdvanced{"Team/Mentor Says ready for more"}:::concept
+    Intermediate --> IntermediateToAdvanced --> Advanced
 
     subgraph Advanced
     direction LR
-        subgraph AdvancedTasks
+        subgraph AdvancedTasks[Advanced Tasks]
             direction LR
             %% States
-            UpstreamSubmissionFixes(("Upstream Submission Fixes/Features"))
-            UpstreamSubmissionDelta(("Upstream Submission of Delta"))
-            MilestonesAndExceptions(("Milestones And Exceptions"))
-            StudyFFE{{"<a href=https://wiki.ubuntu.com/FreezeExceptionProcess>Study FFE</a>"}}
-            DoAnFFE(("Do An FFE"))
-            PlusOne{{"<a href=https://wiki.ubuntu.com/PlusOneMaintenanceTeam>Study +1</a>"}}
-            PlusOneShadowing(("+1 Shadowing"))
+            UpstreamSubmissionFixes(("Upstream Submission Fixes/Features")):::task
+            UpstreamSubmissionDelta(("Upstream Submission of Delta")):::task
+            MilestonesAndExceptions(("Milestones And Exceptions")):::task
+            StudyFFE{{"<a href=https://wiki.ubuntu.com/FreezeExceptionProcess>Study FFE</a>"}}:::study
+            DoAnFFE(("Do An FFE")):::task
+            PlusOne{{"<a href=https://wiki.ubuntu.com/PlusOneMaintenanceTeam>Study +1</a>"}}:::study
+            PlusOneShadowing(("+1 Shadowing")):::task
 
             %% Transitions
             StudyFFE-->DoAnFFE
             PlusOne-->PlusOneShadowing
         end
-        AdvancedKeepGoing["Do enough of these to apply for MOTU"]
+        AdvancedKeepGoing["Do enough of these to apply for MOTU"]:::task
         AdvancedTasks --> AdvancedKeepGoing --> AdvancedTasks
     end
 
+    style Advanced fill:#e6e6e6,color:#000000,stroke:#333
+    style AdvancedTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+
     Advanced --> optionalDebian
-    MOTU{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInMOTU.md>MOTU</a>"}
+    MOTU{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInMOTU.md>MOTU</a>"}:::concept
     Advanced --> MOTU --> Expert
 
-    subgraph optionalDebian
-        Contribute(("<a href=https://www.debian.org/doc/manuals/maint-guide/>Contribute</a>"))
-        DM{"<a href=https://wiki.debian.org/DebianMaintainer>DM</a>"}
-        DD{"<a href=https://wiki.debian.org/DebianDeveloper>DD</a>"}
+    subgraph optionalDebian[Optional Activites in Debian]
+        %% States
+        Contribute(("<a href=https://www.debian.org/doc/manuals/maint-guide/>Contribute</a>")):::task
+        DM{"<a href=https://wiki.debian.org/DebianMaintainer>DM</a>"}:::concept
+        DD{"<a href=https://wiki.debian.org/DebianDeveloper>DD</a>"}:::concept
+
+        %% Transitions
         Contribute --> DM
         DM --> DD
     end
+
+    style optionalDebian fill:#e6e6e6,color:#000000,stroke:#333
 
     subgraph Expert
         direction LR
         subgraph ExpertTasks
             direction TB
-            StudyLibaryTransitions{{"<a href=https://wiki.debian.org/Teams/ReleaseTeam/Transitions>Study Libary Transitions</a>"}}
-            DoLibaryTransitions(("Do Libary Transitions"))
-            StudyPackageTransitions{{"<a href=https://wiki.debian.org/PackageTransition>Study Package Transitions</a>"}}
-            DoPackageTransitions(("Do Package Transitions"))
-            StudyMIR{{"<a href=https://github.com/canonical/ubuntu-mir/edit/main/README.md>Study MIR</a>"}}
-            DoMIR(("Do a MIR"))
-            SeedChange(("Seed Change"))
+
+            %% States
+            StudyLibaryTransitions{{"<a href=https://wiki.debian.org/Teams/ReleaseTeam/Transitions>Study Libary Transitions</a>"}}:::study
+            DoLibaryTransitions(("Do Libary Transitions")):::task
+            StudyPackageTransitions{{"<a href=https://wiki.debian.org/PackageTransition>Study Package Transitions</a>"}}:::study
+            DoPackageTransitions(("Do Package Transitions")):::task
+            StudyMIR{{"<a href=https://github.com/canonical/ubuntu-mir/edit/main/README.md>Study MIR</a>"}}:::study
+            DoMIR(("Do a MIR")):::task
+            SeedChange(("Seed Change")):::task
+
+            %% Transitions
             StudyLibaryTransitions-->DoLibaryTransitions
             StudyPackageTransitions-->DoPackageTransitions
             StudyMIR-->DoMIR
             StudyMIR-->SeedChange
         end
-        ExpertKeepGoing["Do enough to apply for core-dev"]
+        ExpertKeepGoing["Do enough to apply for core-dev"]:::task
         ExpertTasks-->ExpertKeepGoing-->ExpertTasks
     end
 
-    CoreDev{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInCoreDev.md>Core Developer</a>"}
+    style Expert fill:#e6e6e6,color:#000000,stroke:#333
+    style ExpertTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+
+    CoreDev{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInCoreDev.md>Core Developer</a>"}:::concept
 
     Expert --> CoreDev --> Duties
 
     subgraph Duties
         direction LR
-        CoreDevPlusOne(("+1"))
-        Sponsoring(("Sponsoring"))
-        Mentoring(("Mentoring"))
+        CoreDevPlusOne(("+1")):::task
+        Sponsoring(("Sponsoring")):::task
+        Mentoring(("Mentoring")):::task
     end
 
+    style Duties fill:#e6e6e6,color:#000000,stroke:#333
+
 ```
+
+
+

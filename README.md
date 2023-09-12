@@ -12,33 +12,9 @@ as examples.
 %% mermaid flowcharts documentation: https://mermaid.js.org/syntax/flowchart.html
 %%{ init: { 'flowchart': { 'curve': 'catmullRom' } } }%%
 flowchart TD
-    %% Styles
-    classDef study fill:#99CCFF,color:#000000
-    classDef study fill:#fefefe,color:#000000
-    classDef task fill:#FFFFFF,color:#000000	
-    classDef concept fill:#a7a7a7,color:#000000
-    classDef Invisible stroke-width:0,fill:#00000000 
-
-    style Basics fill:#e6e6e6,color:#000000,stroke:#333
-    style InitialStudies fill:#f4f4f4,color:#000000,stroke:#333
-    style InitialTasks fill:#f4f4f4,color:#000000,stroke:#333
-
-    style Intermediate fill:#e6e6e6,color:#000000,stroke:#333
-    style IntermediateTasks fill:#f4f4f4,color:#000000,stroke:#333
-
-    style Advanced fill:#e6e6e6,color:#000000,stroke:#333
-    style AdvancedTasks fill:#f4f4f4,color:#000000,stroke:#333
-
-    style optionalDebian fill:#e6e6e6,color:#000000,stroke:#333
-
-    style Expert fill:#e6e6e6,color:#000000,stroke:#333
-    style ExpertTasks fill:#f4f4f4,color:#000000,stroke:#333
-
-    style Duties fill:#e6e6e6,color:#000000,stroke:#333
 
     Start((" ")):::Invisible
     Start --> |"Path to Distro Contribution"| Basics
-
 
     subgraph Basics
         direction TB

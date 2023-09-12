@@ -13,14 +13,32 @@ as examples.
 %%{ init: { 'flowchart': { 'curve': 'catmullRom' } } }%%
 flowchart TD
     %% Styles
-    %% classDef study fill:#99CCFF,color:#000000
+    classDef study fill:#99CCFF,color:#000000
     classDef study fill:#fefefe,color:#000000
     classDef task fill:#FFFFFF,color:#000000	
     classDef concept fill:#a7a7a7,color:#000000
     classDef Invisible stroke-width:0,fill:#00000000 
 
+    style Basics fill:#e6e6e6,color:#000000,stroke:#333
+    style InitialStudies fill:#f4f4f4,color:#000000,stroke:#333
+    style InitialTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+    style Intermediate fill:#e6e6e6,color:#000000,stroke:#333
+    style IntermediateTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+    style Advanced fill:#e6e6e6,color:#000000,stroke:#333
+    style AdvancedTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+    style optionalDebian fill:#e6e6e6,color:#000000,stroke:#333
+
+    style Expert fill:#e6e6e6,color:#000000,stroke:#333
+    style ExpertTasks fill:#f4f4f4,color:#000000,stroke:#333
+
+    style Duties fill:#e6e6e6,color:#000000,stroke:#333
+
     Start((" ")):::Invisible
     Start --> |"Path to Distro Contribution"| Basics
+
 
     subgraph Basics
         direction TB
@@ -37,12 +55,6 @@ flowchart TD
             TrivialPackgeMerges(("Trivial Package Merges")):::task
         end
     end
-
-    %% style Basics fill:#F99,stroke-width:2px,stroke:#F0F
-    style Basics fill:#e6e6e6,color:#000000,stroke:#333
-    style InitialStudies fill:#f4f4f4,color:#000000,stroke:#333
-    style InitialTasks fill:#f4f4f4,color:#000000,stroke:#333
-
 
     InitialStudies --> InitialTasks
 
@@ -69,10 +81,6 @@ flowchart TD
         IntermediateKeepGoing["Do enough of these to apply for package or group uploads"]:::task
         IntermediateTasks --> IntermediateKeepGoing --> IntermediateTasks
     end
-    
-    style Intermediate fill:#e6e6e6,color:#000000,stroke:#333
-    style IntermediateTasks fill:#f4f4f4,color:#000000,stroke:#333
-
 
     IntermediateToAdvanced{"Team/Mentor Says ready for more"}:::concept
     Intermediate --> IntermediateToAdvanced --> Advanced
@@ -98,9 +106,6 @@ flowchart TD
         AdvancedTasks --> AdvancedKeepGoing --> AdvancedTasks
     end
 
-    style Advanced fill:#e6e6e6,color:#000000,stroke:#333
-    style AdvancedTasks fill:#f4f4f4,color:#000000,stroke:#333
-
 
     Advanced --> optionalDebian
     MOTU{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInMOTU.md>MOTU</a>"}:::concept
@@ -116,8 +121,6 @@ flowchart TD
         Contribute --> DM
         DM --> DD
     end
-
-    style optionalDebian fill:#e6e6e6,color:#000000,stroke:#333
 
     subgraph Expert
         direction LR
@@ -143,9 +146,6 @@ flowchart TD
         ExpertTasks-->ExpertKeepGoing-->ExpertTasks
     end
 
-    style Expert fill:#e6e6e6,color:#000000,stroke:#333
-    style ExpertTasks fill:#f4f4f4,color:#000000,stroke:#333
-
 
     CoreDev{"<a href=https://github.com/canonical/ubuntu-maintainers-handbook/blob/main/MembershipInCoreDev.md>Core Developer</a>"}:::concept
 
@@ -157,8 +157,6 @@ flowchart TD
         Sponsoring(("Sponsoring")):::task
         Mentoring(("Mentoring")):::task
     end
-
-    style Duties fill:#e6e6e6,color:#000000,stroke:#333
 
 ```
 

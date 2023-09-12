@@ -10,7 +10,7 @@ as examples.
 
 ```mermaid
 %% mermaid flowcharts documentation: https://mermaid.js.org/syntax/flowchart.html
-%%{ init: { 'flowchart': { 'curve': 'catmullRom' } } }%%
+%%{ init: { 'flowchart': { 'curve': 'catmullRom' }, 'theme':'neutral' } }%%
 flowchart TD
 
     Start((" ")):::Invisible
